@@ -2,9 +2,16 @@ var formEl=document.querySelector('#task-form');
 var tasksToDoEl= document.querySelector("#tasks-to-do");
 
 
+
+
+
+
+
+
 var taskFormHandler= function(){
-    //stops browsers default settings
+    //stops the browser from reloading the page upon a form submission
     event.preventDefault();
+    // gets the information entered into a form's input field
     var taskNameInput= document.querySelector("input[name='task-name']").value;
     var taskTypeInput= document.querySelector("select[name='task-type']").value;
     var listItemEl= document.createElement("li");
@@ -42,14 +49,19 @@ var createTaskEl= function (taskDataObj){
 var listItemEl = document.createElement("li");
 listItemEl.className = "task-item";
 
+// add task id as a custom attribute
+listItemEl.setAttribute("data-task-id",taskIdCounter);
+
 // create div to hold task info and add to list item
 var taskInfoEl = document.createElement("div");
 taskInfoEl.className = "task-info";
-taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
+taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
 
 listItemEl.appendChild(taskInfoEl);
 
 // add entire list item to list
 tasksToDoEl.appendChild(listItemEl);
+taskIdCounter++;
+
 }
 formEl.addEventListener("submit",taskFormHandler);
